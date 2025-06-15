@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="alert alert-success" role="alert">
+    Funcionario adicionado: <strong>{{ nome }}</strong>
+  </div>
+</div>
+
+<form>
+  <div class="container">
+    <div class="mb-3">
+      <label class="form-label">Nome :</label>
+      <input
+        type="text"
+        class="form-control"
+        name="nome"
+        [(ngModel)]="nome"
+        #nomeInput
+      />
+    </div>
+    <button
+      class="btn btn-primary"
+      (click)="add($event, nomeInput.value)"
+      [disabled]="nome.length == 0"
+    >
+      Adicionar
+    </button>
+  </div>
+</form>

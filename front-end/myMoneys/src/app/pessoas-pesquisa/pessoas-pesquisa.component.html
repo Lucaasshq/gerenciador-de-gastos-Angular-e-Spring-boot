@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="grid">
+    <div class="col-12">
+      <h1>Pessoas</h1>
+    </div>
+
+    <div class="col-12">
+      <label for="">Nome:</label>
+      <input pInputText type="text" fluid />
+    </div>
+
+    <div class="col-12">
+      <p-button label="Pesquisar"></p-button>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="col-12">
+      <p-table
+        [value]="pessoas"
+        showGridlines
+        stripedRows
+        [paginator]="true"
+        [rows]="5"
+        [rowsPerPageOptions]="[5, 10, 20]"
+        responsiveLayout="stack"
+      >
+        <ng-template #header>
+          <tr>
+            <th class="title-table">Nome</th>
+            <th class="title-table">Cidade</th>
+            <th class="title-table">Estado</th>
+            <th class="title-table">Status</th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-pessoas>
+          <tr>
+            <td>{{ pessoas.nome }}</td>
+            <td>{{ pessoas.cidade }}</td>
+            <td>{{ pessoas.estado }}</td>
+            <td>{{ pessoas.status }}</td>
+            <td class="table-button-td">
+              <p-button
+                class="button-table"
+                pTooltip="Editar"
+                tooltipPosition="bottom"
+                icon="pi pi-pencil"
+              >
+              </p-button>
+
+              <p-button
+              class="button-hover"
+              pTooltip="Excluir"
+              tooltipPosition="bottom"
+              icon="pi pi-trash"
+              [severity]="'danger'"
+              >
+              </p-button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div class="col-12">
+      <p-button label="Nova Pessoa" />
+    </div>
+  </div>
+</div>

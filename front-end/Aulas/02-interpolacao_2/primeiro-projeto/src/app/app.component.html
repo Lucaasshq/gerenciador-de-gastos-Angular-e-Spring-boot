@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="alert alert-success" role="alert">
+    Funcionario adicionado: <strong>{{ nome }}</strong>
+  </div>
+</div>
+
+<form>
+  <div class="container">
+    <div class="mb-3">
+      <label for="nome" class="form-label">Nome :</label>
+      <input
+        type="email"
+        class="form-control"
+        id="nome"
+        (input)="alterarNome($event)"
+      />
+    </div>
+    <button class="btn btn-primary" (click)="add($event)">Adicionar</button>
+  </div>
+</form>
