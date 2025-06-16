@@ -13,15 +13,15 @@ export class App {
   cliente1: Cliente = new Cliente();
 
   profissoes: String[] = ['Desenvolvedor', 'Empresário', 'Outra'];
-
   salvar(form: NgForm): void {
     // this.cliente1.nome = form.value.nome;
     // this.cliente1.email = form.value.email;
     // this.cliente1.profissao = form.value.profissao;
 
-    console.log(form.value);
-    console.log(this.cliente1.nome);
-    console.log(this.cliente1.email);
-    console.log(this.cliente1.profissao);
+    // console.log(this.cliente1.nome);
+    // console.log(this.cliente1.email);
+    // console.log(this.cliente1.profissao);
+    console.log(form);
+    console.log(form.valid);
   }
 }

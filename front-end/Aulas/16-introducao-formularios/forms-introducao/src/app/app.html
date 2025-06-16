@@ -1,22 +1,36 @@
 <div class="container">
-  <form #usuarioForm="ngForm" (ngSubmit)="salvar(usuarioForm)">
-    <div class="form-group mb-3">
-      <label for="" class="form-control-label">Nome</label>
+  <!-- {{cliente1 | json}}
+  <br />
+  {{"Valido ? " + usuarioForm.valid }} -->
+
+  <div class="alert alert-danger" role="alert" *ngIf="usuarioForm.invalid">
+    Preencha todos os campos corretamente
+  </div>
+  <form #usuarioForm="ngForm" (ngSubmit)="salvar(usuarioForm)" novalidate>
+    <div class="form-group mb-3 needs-validation">
+      <label for="validationCustom01" class="form-control-label"
+        >Nome completo</label
+      >
       <input
         type="text"
         class="form-control"
         name="nome"
         [(ngModel)]="cliente1.nome"
+        required
+        minlength="10"
+        id="validationCustom01"
       />
     </div>
 
     <div class="form-group mb-3">
       <label for="" class="form-control-label">Email</label>
       <input
-        type="text"
+        type="email"
         class="form-control"
         name="email"
         [(ngModel)]="cliente1.email"
+        required
+        email
       />
     </div>
 
@@ -26,12 +40,18 @@
         class="form-control"
         name="profissao"
         [(ngModel)]="cliente1.profissao"
+        required
       >
-        <option>Selecione</option>
+        <option value="">Selecione</option>
         <option *ngFor="let pro of profissoes" [value]="pro">{{pro}}</option>
       </select>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="!usuarioForm.valid"
+    >
+      Submit
+    </button>
   </form>
 </div>
-{{cliente1 | json}}
