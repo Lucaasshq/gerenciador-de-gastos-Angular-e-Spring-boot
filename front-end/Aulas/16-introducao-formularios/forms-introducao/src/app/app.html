@@ -1,57 +1,53 @@
 <div class="container">
-  <!-- {{cliente1 | json}}
+   <!-- {{cliente1 | json}}
   <br />
   {{"Valido ? " + usuarioForm.valid }} -->
 
-  <div class="alert alert-danger" role="alert" *ngIf="usuarioForm.invalid">
-    Preencha todos os campos corretamente
-  </div>
-  <form #usuarioForm="ngForm" (ngSubmit)="salvar(usuarioForm)" novalidate>
-    <div class="form-group mb-3 needs-validation">
-      <label for="validationCustom01" class="form-control-label"
-        >Nome completo</label
-      >
-      <input
-        type="text"
-        class="form-control"
-        name="nome"
-        [(ngModel)]="cliente1.nome"
-        required
-        minlength="10"
-        id="validationCustom01"
-      />
-    </div>
+   <div class="alert alert-danger" role="alert" *ngIf="usuarioForm.invalid">Preencha todos os campos corretamente</div>
+   <form #usuarioForm="ngForm" (ngSubmit)="salvar(usuarioForm)" novalidate>
+      <div class="form-group mb-3">
+         <label class="form-control-label label-nome">Nome completo</label>
+         <input
+            type="text"
+            class="form-control"
+            name="nome"
+            [(ngModel)]="cliente1.nome"
+            required
+            minlength="10"
+            #nome="ngModel"
+         />
+         <div class="input-alert-danger" *ngIf="nome.hasError('required') && nome.touched">
+            O campo nome é obrigatório.
+         </div>
 
-    <div class="form-group mb-3">
-      <label for="" class="form-control-label">Email</label>
-      <input
-        type="email"
-        class="form-control"
-        name="email"
-        [(ngModel)]="cliente1.email"
-        required
-        email
-      />
-    </div>
+         <div class="input-alert-danger" *ngIf="nome.hasError('minlength') && nome.touched">
+            O nome deve ter no mínimo 10 caracteres.
+         </div>
+      </div>
 
-    <div class="form-group mb-3">
-      <label for="" class="form-control-label">Profissão</label>
-      <select
-        class="form-control"
-        name="profissao"
-        [(ngModel)]="cliente1.profissao"
-        required
-      >
-        <option value="">Selecione</option>
-        <option *ngFor="let pro of profissoes" [value]="pro">{{pro}}</option>
-      </select>
-    </div>
-    <button
-      type="submit"
-      class="btn btn-primary"
-      [disabled]="!usuarioForm.valid"
-    >
-      Submit
-    </button>
-  </form>
+      <div class="form-group mb-3">
+         <label for="" class="form-control-label">Email</label>
+         <input
+            type="email"
+            class="form-control"
+            name="email"
+            [(ngModel)]="cliente1.email"
+            required
+            email
+            #email="ngModel"
+         />
+         <div class="input-alert-danger" *ngIf="email.invalid && nome.touched">Informe um e-mail válido</div>
+      </div>
+
+      <div class="form-group mb-3">
+         <label for="" class="form-control-label">Profissão</label>
+         <select class="form-control" name="profissao" [(ngModel)]="cliente1.profissao" required #profissao="ngModel">
+            <option value="">Selecione</option>
+            <option *ngFor="let pro of profissoes" [value]="pro">{{pro}}</option>
+         </select>
+
+         <div class="input-alert-danger" *ngIf="profissao.invalid && profissao.touched">Informe uma profissão</div>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!usuarioForm.valid">Submit</button>
+   </form>
 </div>
