@@ -10,7 +10,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   styleUrl: './nav-bar.component.css',
 })
 export class NavBarComponent {
- menuAberto = true;
+ menuAberto = false;
 
 alternarMenu() {
   this.menuAberto = !this.menuAberto;

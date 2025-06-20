@@ -5,8 +5,19 @@
 
 .navBar-button {
   color: white;
+  background-color: #10b981;
   position: relative;
-  top: 10px;
+  padding: 5px;
+
+  border: none;
+
+  top: 5px;
+}
+.navBar-button:hover {
+  transition: 0.5s;
+  border-radius: 4px;
+  background-color: orange;
+
 }
 
 .logo {
@@ -25,10 +36,18 @@
   background-color: #3a3633;
   z-index: 999;
   list-style: none;
+
+  transform: translateX(100%); /* começa fora da tela */
+  transition: transform 0.3s ease-in-out;
+
+
+}
+.aberto {
+  transform: translateX(0); /* aparece suavemente */
 }
 
 .nav-bar-usuario {
-  padding: 15px;
+  padding: 20px;
   margin-bottom: 20px;
   border-bottom: solid 2px #525151;
   font-weight: bold;
