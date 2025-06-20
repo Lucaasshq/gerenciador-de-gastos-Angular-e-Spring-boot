@@ -1,9 +1,11 @@
 <div class="container">
-   <!-- {{cliente1 | json}}
-  <br />
-  {{"Valido ? " + usuarioForm.valid }} -->
+   {{cliente1 | json}}
+   <br />
+   {{"Valido ? " + usuarioForm.valid }}
 
-   <div class="alert alert-danger" role="alert" *ngIf="usuarioForm.invalid">Preencha todos os campos corretamente</div>
+   <div class="alert alert-danger" role="alert" *ngIf="usuarioForm.invalid && usuarioForm.touched">
+      Preencha todos os campos corretamente
+   </div>
    <form #usuarioForm="ngForm" (ngSubmit)="salvar(usuarioForm)" novalidate>
       <div class="form-group mb-3">
          <label class="form-control-label label-nome">Nome completo</label>
@@ -42,7 +44,7 @@
       <div class="form-group mb-3">
          <label for="" class="form-control-label">Profissão</label>
          <select class="form-control" name="profissao" [(ngModel)]="cliente1.profissao" required #profissao="ngModel">
-            <option value="">Selecione</option>
+            <option value="" selected disabled>Selecione</option>
             <option *ngFor="let pro of profissoes" [value]="pro">{{pro}}</option>
          </select>
 
