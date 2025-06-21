@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
-import { Pessoa } from '../Model/pessoas';
+import { Pessoa } from '../../Model/pessoas';
 
 @Component({
   selector: 'app-pessoas-pesquisa',

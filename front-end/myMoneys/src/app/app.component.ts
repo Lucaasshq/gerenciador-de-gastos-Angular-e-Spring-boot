@@ -6,12 +6,13 @@ import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos
 import { NavBarComponent } from "./nav-bar/nav-bar.component";
 import { RouterOutlet } from '@angular/router';
 import { PessoasPesquisaComponent } from "./pessoas-pesquisa/pessoas-pesquisa.component";
+import { LancamentoCadastroComponent } from "./lancamento-cadastro/lancamento-cadastro.component";
 
 @Component({
   selector: 'app-root',
   imports: [
     NavBarComponent,
-    RouterOutlet,
+    RouterOutlet
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
