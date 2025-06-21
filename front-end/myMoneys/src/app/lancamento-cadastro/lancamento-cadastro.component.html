@@ -5,14 +5,14 @@
         <h1>Novo lançamento </h1>
       </div>
 
-      <div class="col-6 md:col-3 lg:col-4 ">
+      <div class="col-4 md:col-3 lg:col-2">
         <label for="">Vencimento</label>
-        <input pInputText type="text" fluid>
+        <p-calendar fluid placeholder="dd/mm/yyyy"  dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true" ></p-calendar>
       </div>
 
-      <div class="col-6 md:col-3 lg:col-4">
+      <div class="col-4 md:col-3 lg:col-2">
         <label for="">Recebimento</label>
-        <input pInputText type="text" fluid>
+        <p-calendar fluid  placeholder="dd/mm/yyyy"  dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true" ></p-calendar>
       </div>
     </div>
 
@@ -24,7 +24,12 @@
 
       <div class="col-4">
         <label for="">Valor</label>
-        <input pInputText type="text" placeholder="0,00" fluid>
+        <p-inputNumber
+          placeholder="0.00"
+          inputId="locale-user"
+          mode="currency"
+          currency="BRL"
+          locale="en-US" fluid/>
       </div>
     </div>
 
