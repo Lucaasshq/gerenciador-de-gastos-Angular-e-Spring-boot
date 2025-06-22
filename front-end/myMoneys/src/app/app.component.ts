@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 
 import { MessageService } from 'primeng/api';
-
-import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
-import { NavBarComponent } from "./nav-bar/nav-bar.component";
+import { LancamentoCadastroComponent } from './pages/lancamentos/lancamento-cadastro/lancamento-cadastro.component';
+import { LancamentosPesquisaComponent } from './pages/lancamentos/lancamentos-pesquisa/lancamentos-pesquisa.component';
+import { NavBarComponent } from "./layouts/nav-bar/nav-bar.component";
 import { RouterOutlet } from '@angular/router';
-import { PessoasPesquisaComponent } from "./pessoas-pesquisa/pessoas-pesquisa.component";
-import { LancamentoCadastroComponent } from "./lancamento-cadastro/lancamento-cadastro.component";
+import { PessoasPesquisaComponent } from "./pages/pessoas/pessoas-pesquisa/pessoas-pesquisa.component";
 
 @Component({
   selector: 'app-root',

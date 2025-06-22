@@ -5,7 +5,8 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
-import { Pessoa } from '../../Model/pessoas';
+import { Pessoa } from '../../../Model/pessoas';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-pessoas-pesquisa',
@@ -16,6 +17,7 @@ import { Pessoa } from '../../Model/pessoas';
     ButtonModule,
     TableModule,
     TooltipModule,
+    RouterLink
   ],
   templateUrl: './pessoas-pesquisa.component.html',
   styleUrl: './pessoas-pesquisa.component.css',

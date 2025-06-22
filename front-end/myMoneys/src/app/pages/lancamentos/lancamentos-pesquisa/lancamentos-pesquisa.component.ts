@@ -3,7 +3,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FluidModule } from 'primeng/fluid';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { Lancamento } from '../../Model/Lancamentos';
+import { Lancamento } from '../../../Model/Lancamentos';
 import { CommonModule } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
 import { RouterModule } from '@angular/router';
