@@ -1,3 +1,18 @@
 .button-submit {
   margin-right: 20px;
 }
+
+label {
+  transition: all 0.5s ease-in-out;
+  display: inline-block;
+}
+
+.Recebimento {
+  color: green;
+  opacity: 1;
+}
+
+.Pagamento {
+  color: red;
+  opacity: 1;
+}

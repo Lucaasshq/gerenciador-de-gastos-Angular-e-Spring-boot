@@ -7,17 +7,19 @@ import { FluidModule } from 'primeng/fluid';
 import { InputTextModule } from 'primeng/inputtext';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { CalendarModule } from 'primeng/calendar';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgModel } from '@angular/forms';
 import { NovoLancamento } from '../../Model/NovoLancamento';
 import { InputNumberModule } from 'primeng/inputnumber';
-
-
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { Opcao } from '../../Model/opcoes';
+import { DropdownModule } from 'primeng/dropdown';
+import { DatePickerModule } from 'primeng/datepicker';
 
 
 
 @Component({
   selector: 'app-lancamento-cadastro',
-  imports: [FormsModule ,InputTextModule, ButtonModule, FluidModule, CommonModule, TextareaModule, RouterModule, CalendarModule, InputNumberModule],
+  imports: [FormsModule ,InputTextModule, ButtonModule, FluidModule, CommonModule, TextareaModule, RouterModule, DatePickerModule, InputNumberModule, SelectButtonModule, DropdownModule],
   templateUrl: './lancamento-cadastro.component.html',
   styleUrl: './lancamento-cadastro.component.css'
 })
@@ -33,4 +35,23 @@ export class LancamentoCadastroComponent {
     observacao: ''
   }
 
+  opcoes: Opcao[] = [
+     {label: 'Receita', value: 'Receita'},
+     {label: 'Despesa', value: 'Despesa'}
+    ];
+
+    value: string = 'Receita';
+
+    categorias = [
+      {label: 'Alimentação', value: 1},
+      {label: 'Transporte', value: 2}
+    ]
+
+    pessoas = [
+      {label: 'Lucas', value: 1},
+      {label: 'Hannah', value: 5},
+      {label: 'João', value: 2}
+    ]
+
+   
 }

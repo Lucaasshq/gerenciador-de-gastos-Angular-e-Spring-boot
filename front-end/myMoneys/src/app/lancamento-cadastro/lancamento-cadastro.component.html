@@ -3,16 +3,27 @@
     <div class="grid ">
       <div class="col-12">
         <h1>Novo lançamento </h1>
+
+      <div class="col-12">
+        <p-selectButton
+          name="tipo"
+          #tipo
+          [options]="opcoes"
+          [(ngModel)]="value"
+          optionLabel="label"
+          optionValue="value" />
+        </div>
       </div>
 
-      <div class="col-4 md:col-3 lg:col-2">
-        <label for="">Vencimento</label>
-        <p-calendar fluid placeholder="dd/mm/yyyy"  dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true" ></p-calendar>
-      </div>
 
       <div class="col-4 md:col-3 lg:col-2">
-        <label for="">Recebimento</label>
-        <p-calendar fluid  placeholder="dd/mm/yyyy"  dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true" ></p-calendar>
+        <label >Vencimento</label>
+        <p-date-picker fluid placeholder="dd/mm/yyyy"  dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true" ></p-date-picker>
+      </div>
+
+      <div class="col-4 md:col-3 lg:col-2" [ngClass]="tipo.value === 'Receita'? 'Recebimento': 'Pagamento'">
+        <label >{{ tipo.value === 'Receita'? 'Recebimento': 'Pagamento' }}</label>
+        <p-date-picker fluid  placeholder="dd/mm/yyyy"  dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true" ></p-date-picker>
       </div>
     </div>
 
@@ -29,19 +40,19 @@
           inputId="locale-user"
           mode="currency"
           currency="BRL"
-          locale="en-US" fluid/>
+          locale="pt-br" fluid/>
       </div>
     </div>
 
     <div class="grid">
       <div class="col-6">
         <label >Categoria</label>
-        <input type="text"pInputText fluid="">
+      <p-dropdown name="categorias" [options]="categorias" [(ngModel)]="categorias.values" [filter]="true" placeholder="Selecione" fluid/>
       </div>
 
       <div class="col-6">
-        <label >Categoria</label>
-        <input type="text"pInputText fluid="">
+        <label >Pessoas</label>
+        <p-dropdown name="pessoas" [options]="pessoas" [(ngModel)]="pessoas.values" [filter]="true" placeholder="Selecione" fluid/>
       </div>
     </div>
 

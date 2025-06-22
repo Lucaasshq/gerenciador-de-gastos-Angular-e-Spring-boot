@@ -55,9 +55,10 @@
   text-transform: uppercase;
 }
 
-.nav-bar-itens {
+.nav-bar-itens a {
   color: white;
   padding: 15px;
+  display: block;
 }
 
 .nav-bar-menu a {
@@ -67,5 +68,7 @@
 
 .nav-bar-menu a:hover {
   color: white;
+  background-color: #10b981;
+  transition: 0.5s;
 }
 
