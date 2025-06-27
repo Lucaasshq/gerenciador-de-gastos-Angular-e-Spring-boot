@@ -1,5 +1,5 @@
 <div class="container">
-  <form action="">
+  <form>
     <div class="grid ">
       <div class="col-12">
         <h1>Novo lançamento </h1>
@@ -29,30 +29,39 @@
 
     <div class="grid">
       <div class="col-8">
-        <label for="">Descrição</label>
-        <input pInputText type="text" fluid>
+        <label for="">Descrição {{ descricao.errors | json  }}</label>
+        <input pInputText type="text"  name="descricao" ngModel #descricao="ngModel" minlength="5" required fluid>
+        <div *ngIf="valor.invalid && valor.touched" >
+            Valor inválido! Mínimo é 5.
+      </div>
       </div>
 
       <div class="col-4">
         <label for="">Valor</label>
-        <p-inputNumber
-          placeholder="0.00"
+        <p-inputNumber  [ngClass]="{'ng-invalid ng-dirty': valor.invalid || valor.touched}"
+
+          name="valor"
+          [(ngModel)]="NovoLancamento.valor"
+          #valor="ngModel"
+          placeholder="R$ 0,00"
           inputId="locale-user"
           mode="currency"
           currency="BRL"
-          locale="pt-br" fluid/>
+          locale="pt-br" required fluid />
+          <p-messages *ngIf="valor.value <= 0.10 && valor.touched" [(value)]="erroValue" [enableService]="false" [closable]="false" />
       </div>
+
     </div>
 
     <div class="grid">
       <div class="col-6">
         <label >Categoria</label>
-      <p-dropdown name="categorias" [options]="categorias" [(ngModel)]="categorias.values" [filter]="true" placeholder="Selecione" fluid/>
+      <p-select name="categorias" [options]="categorias" [(ngModel)]="categorias.values" [filter]="true" placeholder="Selecione" fluid/>
       </div>
 
       <div class="col-6">
         <label >Pessoas</label>
-        <p-dropdown name="pessoas" [options]="pessoas" [(ngModel)]="pessoas.values" [filter]="true" placeholder="Selecione" fluid/>
+        <p-select name="pessoas" [options]="pessoas" [(ngModel)]="pessoas.values" [filter]="true" placeholder="Selecione" fluid/>
       </div>
     </div>
 

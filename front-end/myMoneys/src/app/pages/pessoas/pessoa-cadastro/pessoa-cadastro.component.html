@@ -1,1 +1,56 @@
-<p>pessoa-cadastro works!</p>
+<div class="container">
+  <form action="">
+    <div class="grid">
+    <div class="col-12">
+      <h1>Nova Pessoa</h1>
+    </div>
+
+    <div class="col-12 lg:col-12">
+      <label for="nome">Nome:</label>
+      <input pInputText type="text" fluid>
+    </div>
+
+    <div class="col-12 lg:col-9">
+      <label for="logradouro">Logradouro:</label>
+      <input pInputText type="text" fluid>
+    </div>
+
+    <div class="col-12 lg:col-3">
+      <label for="numero">Número:</label>
+      <input pInputText type="text" fluid>
+    </div>
+
+    <div class="col-12 lg:col-4">
+      <label for="complemento">Complemento:</label>
+      <input pInputText type="text" fluid>
+    </div>
+
+    <div class="col-12 lg:col-4">
+      <label for="Bairro">Bairro:</label>
+      <input pInputText type="text" fluid>
+    </div>
+
+    <div class="col-12 lg:col-4">
+      <label for="cep">CEP:</label>
+      <p-inputMask
+        mask="99999-999"
+        [(ngModel)]="value"
+        placeholder="99999-999" name="cep" ></p-inputMask>
+    </div>
+
+    <div class="col-12 lg:col-6">
+      <label for="cidade">Cidade:</label>
+      <input pInputText type="text" fluid>
+    </div>
+
+    <div class="col-12 lg:col-6">
+      <label for="estado">Estado:</label>
+      <input pInputText type="text" fluid>
+    </div>
+      </div>
+
+      <button pButton class="button-submit" >Salvar</button>
+    <button pButton class="button-submit" severity="info">Novo</button>
+    <a class="link" [routerLink]="['/pessoas-pesquisa']">Voltar para pesquisa</a>
+    </form>
+</div>

@@ -14,18 +14,33 @@ label {
   font-weight: bold;
 }
 
-@media (min-width: 1200px) {
+.container {
+  width: 100%;
+  padding: 0 16px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
   .container {
-    width: 1170px;
-    margin: 0 auto;
+    max-width: 720px;
   }
 }
 
-
-.debug-grid > div {
-  border: 1px solid red; /* Borda vermelha */
-  background-color: rgba(255, 0, 0, 0.1); /* Fundo vermelho claro */
-
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
 }
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1400px;
+  }
+}
+
+.p-inputmask{
+  width: 100% !important;
+}
+
 
 

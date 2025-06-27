@@ -5,20 +5,22 @@ import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { FluidModule } from 'primeng/fluid';
 import { InputTextModule } from 'primeng/inputtext';
-import { RouterModule, RouterOutlet } from '@angular/router';
-import { FormsModule, NgModel } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { NovoLancamento } from '../../../Model/NovoLancamento';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { Opcao } from '../../../Model/opcoes';
-import { DropdownModule } from 'primeng/dropdown';
 import { DatePickerModule } from 'primeng/datepicker';
+import { SelectModule } from 'primeng/select';
+import { MessagesModule } from 'primeng/messages';
+import { Message } from '../../../Model/messages';
 
 
 
 @Component({
   selector: 'app-lancamento-cadastro',
-  imports: [FormsModule ,InputTextModule, ButtonModule, FluidModule, CommonModule, TextareaModule, RouterModule, DatePickerModule, InputNumberModule, SelectButtonModule, DropdownModule],
+  imports: [FormsModule ,InputTextModule, ButtonModule, FluidModule, CommonModule, TextareaModule, RouterModule, DatePickerModule, InputNumberModule, SelectButtonModule, SelectModule, MessagesModule],
   templateUrl: './lancamento-cadastro.component.html',
   styleUrl: './lancamento-cadastro.component.css'
 })
@@ -52,5 +54,7 @@ export class LancamentoCadastroComponent {
       {label: 'João', value: 2}
     ]
 
+    erroLenght: Message[] = [{ severity: 'error', detail: 'Mínimo de 5 caracteres' }];
+    erroValue: Message[] = [{severity: 'error', detail: 'Digite um valor minimo R$0,05' }]
 
 }
