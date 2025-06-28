@@ -1,5 +1,5 @@
 <div class="container">
-  <form action="">
+  <form #pessoaForm="ngForm">
     <div class="grid">
     <div class="col-12">
       <h1>Nova Pessoa</h1>
@@ -7,49 +7,57 @@
 
     <div class="col-12 lg:col-12">
       <label for="nome">Nome:</label>
-      <input pInputText type="text" fluid>
+      <input pInputText type="text" name="nome" ngModel #nome="ngModel" minlength="5" required fluid>
+      <app-message [control]="nome" error="required" text="Informe o nome"  ></app-message>
+      <app-message [control]="nome" error="minlength" text="mínimo 5 caracteres"  ></app-message>
     </div>
 
     <div class="col-12 lg:col-9">
       <label for="logradouro">Logradouro:</label>
-      <input pInputText type="text" fluid>
+      <input pInputText type="text" name="logradouro" ngModel #logradouro="ngModel" required fluid>
+      <app-message [control]="logradouro" error="required" text="Informe o logradouro"  ></app-message>
     </div>
 
     <div class="col-12 lg:col-3">
       <label for="numero">Número:</label>
-      <input pInputText type="text" fluid>
+      <input pInputText type="text" name="numero" ngModel #numero="ngModel" required fluid>
+      <app-message [control]="numero" error="required" text="Informe o número"  ></app-message>
     </div>
 
     <div class="col-12 lg:col-4">
       <label for="complemento">Complemento:</label>
-      <input pInputText type="text" fluid>
+      <input name="complemento" pInputText type="text"fluid>
+
     </div>
 
     <div class="col-12 lg:col-4">
       <label for="Bairro">Bairro:</label>
-      <input pInputText type="text" fluid>
+      <input pInputText type="text" name="bairro" ngModel #bairro="ngModel" required fluid>
+      <app-message [control]="bairro" error="required" text="Informe o bairro"  ></app-message>
     </div>
 
     <div class="col-12 lg:col-4">
       <label for="cep">CEP:</label>
       <p-inputMask
         mask="99999-999"
-        [(ngModel)]="value"
-        placeholder="99999-999" name="cep" ></p-inputMask>
+        placeholder="99999-999" name="cep" ngModel #cep="ngModel" required ></p-inputMask>
+         <app-message [control]="cep" error="required" text="Informe o CEP"  ></app-message>
     </div>
 
     <div class="col-12 lg:col-6">
       <label for="cidade">Cidade:</label>
-      <input pInputText type="text" fluid>
+      <input pInputText type="text" name="cidade" ngModel #cidade="ngModel" required fluid>
+        <app-message [control]="cidade" error="required" text="Informe a cidade"  ></app-message>
     </div>
 
     <div class="col-12 lg:col-6">
       <label for="estado">Estado:</label>
-      <input pInputText type="text" fluid>
+      <input pInputText type="text" name="estado" ngModel #estado="ngModel" required fluid>
+       <app-message [control]="estado" error="required" text="Informe o estado"  ></app-message>
     </div>
       </div>
 
-      <button pButton class="button-submit" >Salvar</button>
+      <button pButton class="button-submit" [disabled]="!pessoaForm.valid" >Salvar</button>
     <button pButton class="button-submit" severity="info">Novo</button>
     <a class="link" [routerLink]="['/pessoas-pesquisa']">Voltar para pesquisa</a>
     </form>

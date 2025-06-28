@@ -15,12 +15,14 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { SelectModule } from 'primeng/select';
 import { MessagesModule } from 'primeng/messages';
 import { Message } from '../../../Model/messages';
+import { MessageComponent } from "../../../layouts/message/message.component";
+
 
 
 
 @Component({
   selector: 'app-lancamento-cadastro',
-  imports: [FormsModule ,InputTextModule, ButtonModule, FluidModule, CommonModule, TextareaModule, RouterModule, DatePickerModule, InputNumberModule, SelectButtonModule, SelectModule, MessagesModule],
+  imports: [FormsModule, InputTextModule, ButtonModule, FluidModule, CommonModule, TextareaModule, RouterModule, DatePickerModule, InputNumberModule, SelectButtonModule, SelectModule, MessagesModule, MessageComponent],
   templateUrl: './lancamento-cadastro.component.html',
   styleUrl: './lancamento-cadastro.component.css'
 })
@@ -43,11 +45,13 @@ export class LancamentoCadastroComponent {
 
     value: string = 'Receita';
 
+    categoriaSelecionada: number | null = null;
     categorias = [
       {label: 'Alimentação', value: 1},
       {label: 'Transporte', value: 2}
     ]
 
+    pessoaSelecionada:string | null = null
     pessoas = [
       {label: 'Lucas', value: 1},
       {label: 'Hannah', value: 5},

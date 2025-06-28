@@ -1,0 +1,9 @@
+/* css de mensagens de erro dos formularios */
+.error-message{
+  color: red;
+  padding: 8px;
+  background-color: #FEF3F3;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+

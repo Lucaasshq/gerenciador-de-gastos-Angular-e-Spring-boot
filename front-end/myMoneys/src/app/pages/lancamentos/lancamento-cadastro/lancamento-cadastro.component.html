@@ -1,5 +1,5 @@
 <div class="container">
-  <form>
+  <form #lancamentoForm="ngForm">
     <div class="grid ">
       <div class="col-12">
         <h1>Novo lançamento </h1>
@@ -18,12 +18,14 @@
 
       <div class="col-4 md:col-3 lg:col-2">
         <label >Vencimento</label>
-        <p-date-picker fluid placeholder="dd/mm/yyyy"  dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true" ></p-date-picker>
+        <p-date-picker   placeholder="dd/mm/yyyy"  dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true" name="Vencimento" ngModel #vecimento="ngModel" fluid required ></p-date-picker>
+        <app-message [control]="vecimento" error="required" text="Informe uma data" ></app-message>
       </div>
 
       <div class="col-4 md:col-3 lg:col-2" [ngClass]="tipo.value === 'Receita'? 'Recebimento': 'Pagamento'">
         <label >{{ tipo.value === 'Receita'? 'Recebimento': 'Pagamento' }}</label>
-        <p-date-picker fluid  placeholder="dd/mm/yyyy"  dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true" ></p-date-picker>
+        <p-date-picker fluid  placeholder="dd/mm/yyyy"  dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true"></p-date-picker>
+
       </div>
     </div>
 
@@ -31,24 +33,23 @@
       <div class="col-8">
         <label for="">Descrição {{ descricao.errors | json  }}</label>
         <input pInputText type="text"  name="descricao" ngModel #descricao="ngModel" minlength="5" required fluid>
-        <div *ngIf="valor.invalid && valor.touched" >
-            Valor inválido! Mínimo é 5.
-      </div>
+       <app-message [control]="descricao" error="required" text="Informe uma descrição" ></app-message>
+        <app-message [control]="descricao" error="minlength" text="Minimo de 5 caracteres" ></app-message>
       </div>
 
       <div class="col-4">
         <label for="">Valor</label>
-        <p-inputNumber  [ngClass]="{'ng-invalid ng-dirty': valor.invalid || valor.touched}"
-
+        <p-inputNumber
           name="valor"
           [(ngModel)]="NovoLancamento.valor"
           #valor="ngModel"
-          placeholder="R$ 0,00"
           inputId="locale-user"
           mode="currency"
           currency="BRL"
-          locale="pt-br" required fluid />
-          <p-messages *ngIf="valor.value <= 0.10 && valor.touched" [(value)]="erroValue" [enableService]="false" [closable]="false" />
+          locale="pt-br"
+          required
+          fluid />
+            <app-message [control]="valor" error="required" text="Informe um valor" ></app-message>
       </div>
 
     </div>
@@ -56,12 +57,14 @@
     <div class="grid">
       <div class="col-6">
         <label >Categoria</label>
-      <p-select name="categorias" [options]="categorias" [(ngModel)]="categorias.values" [filter]="true" placeholder="Selecione" fluid/>
+      <p-select [options]="categorias" [(ngModel)]="categoriaSelecionada" [filter]="true" placeholder="Selecione" name="categoria" ngModel #categoria="ngModel" required fluid/>
+           <app-message [control]="categoria" error="required" text="Selecione uma categoria" ></app-message>
       </div>
 
       <div class="col-6">
         <label >Pessoas</label>
-        <p-select name="pessoas" [options]="pessoas" [(ngModel)]="pessoas.values" [filter]="true" placeholder="Selecione" fluid/>
+        <p-select name="pessoas" [options]="pessoas" [(ngModel)]="pessoaSelecionada" [filter]="true" ngModel #pessoa="ngModel" placeholder="Selecione" required fluid/>
+         <app-message [control]="pessoa" error="required" text="Selecione uma pessoa" ></app-message>
       </div>
     </div>
 
@@ -72,7 +75,7 @@
       </div>
     </div>
 
-    <button pButton class="button-submit" >Salvar</button>
+    <button pButton class="button-submit" #salvar [disabled]="!lancamentoForm.valid" >Salvar</button>
     <button pButton class="button-submit" severity="info">Novo</button>
     <a [routerLink]="['/lancamentos-pesquisa']">Voltar para pesquisa</a>
   </form>
