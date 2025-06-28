@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { FluidModule } from 'primeng/fluid';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { Lancamento } from '../../../Model/Lancamentos';
 import { CommonModule } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
 import { RouterModule } from '@angular/router';
+import { LancamentosGridComponent } from "../../../layouts/lancamentos-grid/lancamentos-grid.component";
+import { Lancamento } from '../../../Model/Lancamentos';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -17,13 +18,15 @@ import { RouterModule } from '@angular/router';
     ButtonModule,
     TableModule,
     TooltipModule,
-    RouterModule
-  ],
+    RouterModule,
+    LancamentosGridComponent
+],
   templateUrl: './lancamentos-pesquisa.component.html',
   styleUrl: './lancamentos-pesquisa.component.css',
 })
 export class LancamentosPesquisaComponent {
-  lancamentos: Lancamento[] = [
+
+    lancamentos: Lancamento[] = [
     {
       tipo: 'DESPESA',
       descricao: 'Compra de pão',
@@ -105,4 +108,5 @@ export class LancamentosPesquisaComponent {
       pessoa: 'Assistência Técnica A',
     },
   ];
+
 }

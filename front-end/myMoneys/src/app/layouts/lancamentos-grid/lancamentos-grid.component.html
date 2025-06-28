@@ -1,0 +1,62 @@
+  <div class="grid">
+    <div class="col-12">
+      <p-table
+        [value]="lancamentos"
+        showGridlines=""
+        stripedRows
+        [paginator]="true"
+        [rows]="5"
+        [rowsPerPageOptions]="[5, 10, 20]"
+        responsiveLayout="stack"
+      >
+        <ng-template #header>
+          <tr>
+            <th class="title-table">Pessoa</th>
+            <th class="title-table">Tipo</th>
+            <th class="title-table">Descrição</th>
+            <th class="title-table">Data de vencimento</th>
+            <th class="title-table">Data de pagamento</th>
+            <th class="title-table">Valor</th>
+            <th class="title-table"></th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-lancamento>
+          <tr>
+            <td>{{ lancamento.pessoa }}</td>
+            <td>{{ lancamento.tipo }}</td>
+            <td>{{ lancamento.descricao }}</td>
+            <td>{{ lancamento.dataVencimento | date : "dd/MM/yyyy" }}</td>
+            <td>{{ lancamento.dataPagamento | date : "dd/MM/yyyy" }}</td>
+            <td>
+              <span
+                class="value"
+                [ngStyle]="{
+                  color: lancamento.tipo === 'DESPESA' ? 'red' : 'blue'
+                }"
+                >{{ lancamento.valor | currency : "BRL" }}</span
+              >
+            </td>
+
+            <td>
+              <p-button
+                class="button-table"
+                pTooltip="Editar"
+                tooltipPosition="bottom"
+                icon="pi pi-pencil"
+              >
+              </p-button>
+              <p-button
+                class="button-hover"
+                pTooltip="Excluir"
+                tooltipPosition="bottom"
+                icon="pi pi-trash"
+                [severity]="'danger'"
+              >
+              </p-button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+  </div>
