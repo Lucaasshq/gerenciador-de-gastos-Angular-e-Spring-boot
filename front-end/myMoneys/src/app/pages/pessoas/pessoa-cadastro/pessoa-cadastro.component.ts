@@ -4,7 +4,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
 import { FormsModule } from '@angular/forms';
-import { MessageComponent } from "../../../layouts/message/message.component";
+import { MessageComponent } from "../../../shared/message/message.component";
 
 @Component({
   selector: 'app-pessoa-cadastro',
@@ -13,5 +13,5 @@ import { MessageComponent } from "../../../layouts/message/message.component";
   styleUrl: './pessoa-cadastro.component.css'
 })
 export class PessoaCadastroComponent {
-    
+
 }

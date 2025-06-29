@@ -15,7 +15,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { SelectModule } from 'primeng/select';
 import { MessagesModule } from 'primeng/messages';
 import { Message } from '../../../Model/messages';
-import { MessageComponent } from "../../../layouts/message/message.component";
+import { MessageComponent } from "../../../shared/message/message.component";
 
 
 
