@@ -1,7 +1,8 @@
-import { FuncionarioService } from './../services/funcionario.services';
+import { LogService } from '../services/log.service';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { FuncionarioService } from '../services/funcionario.service';
 
 @Component({
   selector: 'app-funcionario-form',
@@ -10,12 +11,12 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './funcionario-form.component.css'
 })
 export class FuncionarioFormComponent {
-  funcionarioService:FuncionarioService;
 
-  constructor() {
-    this.funcionarioService = new FuncionarioService();
+  constructor(
+    private funcionarioService:FuncionarioService) {
+
   }
-  adicionar(nome:string){
+  adicionar(nome:string):void{
     this.funcionarioService.adicionar(nome)
 
   }
