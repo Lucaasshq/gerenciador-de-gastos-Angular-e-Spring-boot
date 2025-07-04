@@ -21,7 +21,7 @@
           <td>{{cidade.nome}}</td>
           <td>
             <div class="input-group">
-            <input name="cidade" type="text" class="form-control" [(ngModel)]="cidade.nome">
+            <input name="cidade" type="text" class="form-control" [(ngModel)]="cidade.nome" #nome>
             <span  class="btn btn-primary" (click)="atualizar(cidade)"> Atualizar</span>
           </div>
         </td>
