@@ -1,12 +1,14 @@
 package org.lucas.algamoneyapi.service;
 
 
+import jakarta.persistence.EntityNotFoundException;
+import org.lucas.algamoneyapi.exeception.CategoriaNaoEncontradaExeception;
 import org.lucas.algamoneyapi.model.Categoria;
 import org.lucas.algamoneyapi.repository.CategoriaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 
@@ -27,7 +29,8 @@ public class CategoriaService {
        return categoriaRepository.save(categoria);
     }
 
-    public Optional<Categoria> buscarPorId(Long id){
-        return categoriaRepository.findById(id);
+    public Categoria buscarPorId(Long id) {
+        return categoriaRepository.findById(id)
+                .orElseThrow(() -> new CategoriaNaoEncontradaExeception("Categoria com ID " + id +" Não encontrada"));
     }
 }

@@ -27,7 +27,6 @@ public class CategoriaController {
     }
 
     @PostMapping
-
     public ResponseEntity<Categoria> salvarCategoria(@RequestBody Categoria categoria){
         Categoria categoriaSalva = categoriaService.salvar(categoria);
 
@@ -43,7 +42,8 @@ public class CategoriaController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Categoria> buscarPorId(@PathVariable Long id){
-        return categoriaService.buscarPorId(id);
+    public ResponseEntity<Categoria> buscarPorId(@PathVariable Long id) {
+            Categoria cEncontrada = categoriaService.buscarPorId(id);
+            return  ResponseEntity.ok(cEncontrada);
     }
 }
