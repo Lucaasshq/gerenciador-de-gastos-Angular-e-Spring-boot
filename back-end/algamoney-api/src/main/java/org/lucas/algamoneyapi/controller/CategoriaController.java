@@ -1,5 +1,6 @@
 package org.lucas.algamoneyapi.controller;
 
+import jakarta.validation.Valid;
 import org.lucas.algamoneyapi.model.Categoria;
 import org.lucas.algamoneyapi.service.CategoriaService;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +9,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/categorias")
@@ -27,7 +27,7 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<Categoria> salvarCategoria(@RequestBody Categoria categoria){
+    public ResponseEntity<Categoria> criarCategoria(@Valid @RequestBody Categoria categoria){
         Categoria categoriaSalva = categoriaService.salvar(categoria);
 
         URI uri = ServletUriComponentsBuilder
