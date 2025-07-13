@@ -26,6 +26,12 @@ public class ApiExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erroDTO);
     }
 
+    @ExceptionHandler(PessoaNaoEncontradaException.class)
+    public ResponseEntity<ErroDTO> handlerPessoaNaoEncontrada(PessoaNaoEncontradaException ex){
+        ErroDTO erroDTO = new ErroDTO(HttpStatus.NOT_FOUND.value(), ex.getMessage(), "Pessoa não encontrada" );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erroDTO);
+    }
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErroDTO> handleJsonArgumentoInvalido(HttpMessageNotReadableException ex) {
         ErroDTO erroDTO = new ErroDTO(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), "Campo com Dados inválidos.");
