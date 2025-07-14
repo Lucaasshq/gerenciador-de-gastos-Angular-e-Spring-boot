@@ -40,4 +40,11 @@ public class PessoaController {
     public ResponseEntity<Pessoa> buscarPorId(@PathVariable Long id){
         return ResponseEntity.ok(pessoaService.buscarPorId(id));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> remover(@PathVariable Long id){
+        pessoaService.excluir(id);
+        return ResponseEntity.noContent().build();
+
+    }
 }

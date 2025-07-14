@@ -44,4 +44,6 @@ public class CategoriaController {
             Categoria cEncontrada = categoriaService.buscarPorId(id);
             return  ResponseEntity.ok(cEncontrada);
     }
+
+
 }

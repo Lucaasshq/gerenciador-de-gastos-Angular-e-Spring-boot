@@ -19,10 +19,17 @@ public class PessoaService {
     }
 
     public Pessoa buscarPorId(Long id){
-        return pessoaRepository.findById(id).orElseThrow(() -> new PessoaNaoEncontradaException("Pessoa de ID" + id +" não encontrado"));
+        return pessoaRepository.findById(id).orElseThrow(() -> new PessoaNaoEncontradaException("Pessoa de ID " + id +" não encontrado"));
     }
 
     public Pessoa salvar(Pessoa pessoa){
         return pessoaRepository.save(pessoa);
+    }
+
+    public void excluir(Long id){
+       if (!pessoaRepository.existsById(id)){
+           throw new PessoaNaoEncontradaException("Pessoa de ID "+ id + " Não encontrada");
+       };
+       pessoaRepository.deleteById(id);
     }
 }
