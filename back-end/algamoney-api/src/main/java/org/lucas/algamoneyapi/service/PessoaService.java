@@ -59,4 +59,10 @@ public class PessoaService {
 
         return pessoaRepository.save(pessoaEncontrada);
     }
+
+    public void atualizarPropriedadeAtivo(Long id, Boolean ativo) {
+        Pessoa pessoaEncontrada = pessoaRepository.findById(id).orElseThrow(() -> new PessoaNaoEncontradaException("Pessoa com esse ID "+id+ " não encontrada"));
+        pessoaEncontrada.setAtivo(ativo);
+        pessoaRepository.save(pessoaEncontrada);
+    }
 }

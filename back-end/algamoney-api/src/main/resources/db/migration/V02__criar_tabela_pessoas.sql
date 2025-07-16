@@ -12,7 +12,7 @@ CREATE TABLE pessoas (
 );
 
 
-insert into pessoas (nome, ativo, logradouro, numero, complemento, bairro, cep, cidade, estado) values ('Doll', TRUE, '5354 Harbort Lane', '66010', '6984 Texas Center', '0 Heffernan Junction', '59536127', 'Memphis', 'Tennessee');
+insert into pessoas (nome, ativo, logradouro, numero, complemento, bairro, cep, cidade, estado) values ('Dollll', TRUE, '5354 Harbort Lane', '66010', '6984 Texas Center', '0 Heffernan Junction', '59536127', 'Memphis', 'Tennessee');
 insert into pessoas (nome, ativo, logradouro, numero, complemento, bairro, cep, cidade, estado) values ('Orion', TRUE, '2 Packers Terrace', '6', '690 Chive Court', '11475 Cottonwood Street', '63079295', 'Suffolk', 'Virginia');
 insert into pessoas (nome, ativo, logradouro, numero, complemento, bairro, cep, cidade, estado) values ('Prince', FALSE, '984 Hovde Crossing', '1', '89557 Mariners Cove Trail', '50330 Gateway Place', '32471022', 'Albuquerque', 'New Mexico');
 insert into pessoas (nome, ativo, logradouro, numero, complemento, bairro, cep, cidade, estado) values ('Killie', TRUE, '14761 Oneill Place', '73999', '1051 Westridge Crossing', '063 Doe Crossing Drive', '14367474', 'Tulsa', 'Oklahoma');
