@@ -1,6 +1,7 @@
 package org.lucas.algamoneyapi.exeception;
 
 import org.lucas.algamoneyapi.dto.ErroDTO;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -43,6 +44,15 @@ public class ApiExceptionHandler {
                     .append(";");
         }
         ErroDTO erroDTO = new ErroDTO(HttpStatus.BAD_REQUEST.value(), msgDesenvolvedor.toString(), msgUsuario);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDTO);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErroDTO> handlerAtualizarDadosPessoa(DataIntegrityViolationException ex){
+        String msgUsuario = "Um ou mais campos estão faltando ser preenchido";
+
+
+        ErroDTO erroDTO = new ErroDTO(HttpStatus.BAD_REQUEST.value(), ex.getLocalizedMessage(), msgUsuario);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDTO);
     }
 

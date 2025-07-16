@@ -3,6 +3,7 @@ package org.lucas.algamoneyapi.controller;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.lucas.algamoneyapi.controller.event.RecursoCriadoEvent;
+import org.lucas.algamoneyapi.dto.PessoaDTO;
 import org.lucas.algamoneyapi.model.Pessoa;
 import org.lucas.algamoneyapi.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,10 @@ public class PessoaController {
         pessoaService.excluir(id);
         return ResponseEntity.noContent().build();
 
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Pessoa> atualizarDados(@PathVariable Long id,@Valid @RequestBody PessoaDTO pessoaDTO){
+       return ResponseEntity.ok(pessoaService.atualizar(id, pessoaDTO)) ;
     }
 }
