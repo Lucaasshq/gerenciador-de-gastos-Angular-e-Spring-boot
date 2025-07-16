@@ -56,5 +56,12 @@ public class ApiExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDTO);
     }
 
+    @ExceptionHandler(LancamentoNaoEncontradoException.class)
+    public ResponseEntity<ErroDTO> handlerLancamentoNaoEncontrada(LancamentoNaoEncontradoException ex){
+        ErroDTO erroDTO = new ErroDTO(HttpStatus.NOT_FOUND.value(), ex.getMessage(), "Lancamento não encontrado" );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erroDTO);
+    }
+
+
 
 }
