@@ -46,6 +46,11 @@ public class Lancamento {
     @JoinColumn(name = "codigo_categoria")
     private Categoria categoria;
 
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "codigo_pessoa")
+    private Pessoa pessoa;
+
 
     @Override
     public boolean equals(Object o) {
