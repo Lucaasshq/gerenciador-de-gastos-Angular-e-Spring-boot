@@ -2,7 +2,7 @@ package org.lucas.algamoneyapi.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import org.lucas.algamoneyapi.controller.event.RecursoCriadoEvent;
+import org.lucas.algamoneyapi.dto.LancamentoDTO;
 import org.lucas.algamoneyapi.model.Lancamento;
 import org.lucas.algamoneyapi.service.LancamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +35,9 @@ public class LancamentoController {
     }
 
     @PostMapping
-    public ResponseEntity<Lancamento> criarLancamento(@Valid @RequestBody Lancamento lancamento, HttpServletResponse response){
-        Lancamento lancamentoSalvo = lancamentoService.salvar(lancamento);
-        publisher.publishEvent(new RecursoCriadoEvent(response, lancamentoSalvo.getId()));
+    public ResponseEntity<LancamentoDTO> criarLancamento(@Valid @RequestBody LancamentoDTO dto, HttpServletResponse response){
+        LancamentoDTO lancamentoSalvo = lancamentoService.salvar(dto);
+//        publisher.publishEvent(new RecursoCriadoEvent(response, lancamentoSalvo.ge));
         return ResponseEntity.status(HttpStatus.CREATED).body(lancamentoSalvo);
     }
 }

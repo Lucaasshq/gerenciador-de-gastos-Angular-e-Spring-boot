@@ -1,12 +1,10 @@
 package org.lucas.algamoneyapi.service;
 
-import org.lucas.algamoneyapi.dto.PessoaDTO;
+
 import org.lucas.algamoneyapi.exeception.PessoaNaoEncontradaException;
 import org.lucas.algamoneyapi.model.Endereco;
 import org.lucas.algamoneyapi.model.Pessoa;
 import org.lucas.algamoneyapi.repository.PessoaRepository;
-import org.springframework.beans.BeanUtils;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,21 +35,21 @@ public class PessoaService {
        pessoaRepository.deleteById(id);
     }
 
-    public Pessoa atualizar(Long id, PessoaDTO pessoaDTO){
+    public Pessoa atualizar(Long id, Pessoa pessoa){
        Pessoa pessoaEncontrada = pessoaRepository.findById(id).orElseThrow(() -> new PessoaNaoEncontradaException("Pessoa com esse ID "+id+ " não encontrada"));
 
-       pessoaEncontrada.setNome(pessoaDTO.getNome());
-       pessoaEncontrada.setAtivo(pessoaDTO.getAtivo());
+       pessoaEncontrada.setNome(pessoa.getNome());
+       pessoaEncontrada.setAtivo(pessoa.getAtivo());
 
-       if (pessoaDTO.getEndereco() != null){
+       if (pessoa.getEndereco() != null){
            Endereco endereco = new Endereco();
-           endereco.setLogradouro(pessoaDTO.getEndereco().getLogradouro());
-           endereco.setCep(pessoaDTO.getEndereco().getCep());
-           endereco.setNumero(pessoaDTO.getEndereco().getNumero());
-           endereco.setComplemento(pessoaDTO.getEndereco().getComplemento());
-           endereco.setBairro(pessoaDTO.getEndereco().getBairro());
-           endereco.setCidade(pessoaDTO.getEndereco().getCidade());
-           endereco.setEstado(pessoaDTO.getEndereco().getEstado());
+           endereco.setLogradouro(pessoa.getEndereco().getLogradouro());
+           endereco.setCep(pessoa.getEndereco().getCep());
+           endereco.setNumero(pessoa.getEndereco().getNumero());
+           endereco.setComplemento(pessoa.getEndereco().getComplemento());
+           endereco.setBairro(pessoa.getEndereco().getBairro());
+           endereco.setCidade(pessoa.getEndereco().getCidade());
+           endereco.setEstado(pessoa.getEndereco().getEstado());
 
            pessoaEncontrada.setEndereco(endereco);
        }

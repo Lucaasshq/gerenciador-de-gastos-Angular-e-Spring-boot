@@ -8,16 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 @Getter
 @Setter
-public class PessoaDTO {
-    @Size(min = 5, max = 50)
-    @NotBlank
-    private String nome;
-
+public class PessoaIdDTO {
     @NotNull
-    private Boolean ativo;
-
-
-    private EnderecoDTO endereco;
-
-
+    private Long id;
 }
