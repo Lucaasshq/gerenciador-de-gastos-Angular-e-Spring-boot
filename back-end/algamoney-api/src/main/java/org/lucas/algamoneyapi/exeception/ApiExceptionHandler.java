@@ -40,16 +40,18 @@ public class ApiExceptionHandler {
         for (FieldError f : ex.getBindingResult().getFieldErrors()){
             msgDesenvolvedor.append(f.getField())
                     .append(": ")
-                    .append(f)
-                    .append(";");
+                    .append(f.getDefaultMessage())  // mensagem da anotação de validação
+                    .append(" (valor rejeitado: ")
+                    .append(f.getRejectedValue())
+                    .append("); ");
         }
         ErroDTO erroDTO = new ErroDTO(HttpStatus.BAD_REQUEST.value(), msgDesenvolvedor.toString(), msgUsuario);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDTO);
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ErroDTO> handlerAtualizarDadosPessoa(DataIntegrityViolationException ex){
-        String msgUsuario = "Um ou mais campos estão faltando ser preenchido";
+    public ResponseEntity<ErroDTO> handlerdataIntegrityViolationException(DataIntegrityViolationException ex){
+        String msgUsuario = "Operação não permitida!";
 
 
         ErroDTO erroDTO = new ErroDTO(HttpStatus.BAD_REQUEST.value(), ex.getLocalizedMessage(), msgUsuario);
