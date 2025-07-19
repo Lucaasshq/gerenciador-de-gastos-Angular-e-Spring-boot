@@ -26,10 +26,10 @@ public class Lancamento {
     private String descricao;
 
     @NotNull
-    @Column( name = "datavencimento")
+    @Column( name = "data_vencimento")
     private LocalDate dataVencimento;
 
-    @Column(name = "datapagamento")
+    @Column(name = "data_pagamento")
     private LocalDate dataPagamento;
 
     @NotNull
@@ -43,12 +43,12 @@ public class Lancamento {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "codigo_categoria")
+    @JoinColumn(name = "id_categoria")
     private Categoria categoria;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "codigo_pessoa")
+    @JoinColumn(name = "id_pessoa")
     private Pessoa pessoa;
 
 
