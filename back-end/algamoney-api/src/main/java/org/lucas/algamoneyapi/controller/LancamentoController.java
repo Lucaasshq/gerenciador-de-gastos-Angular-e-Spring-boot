@@ -24,10 +24,10 @@ public class LancamentoController {
     ApplicationEventPublisher publisher;
 
 
-    @GetMapping
-    public ResponseEntity<List<Lancamento>> listarLancamentos(){
-        return ResponseEntity.ok(lancamentoService.buscarTodos());
-    }
+//    @GetMapping
+//    public ResponseEntity<List<Lancamento>> listarLancamentos(){
+//        return ResponseEntity.ok(lancamentoService.buscarTodos());
+//    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Lancamento> buscarPorId(@PathVariable Long id){

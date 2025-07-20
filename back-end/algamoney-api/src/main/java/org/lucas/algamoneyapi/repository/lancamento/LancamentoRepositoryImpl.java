@@ -24,13 +24,13 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery {
         CriteriaQuery<Lancamento> criteriaQuery = builder.createQuery(Lancamento.class);
         Root<Lancamento> root = criteriaQuery.from(Lancamento.class);
 
-        Predicate[] predicates criarRestricoes(lan ,builder, root);
-        criteriaQuery.where(predicates);
+//        Predicate[] predicates = criarRestricoes(lan ,builder, root);
+//        criteriaQuery.where(predicates);
 
         TypedQuery<Lancamento> query = manager.createQuery(criteriaQuery);
         return query.getResultList();
     }
-
-    private void criarRestricoes(LancamentoFilter lancamentoFilter ,CriteriaBuilder builder, Root<Lancamento> root) {
-    }
+//
+//    private Predicate[] criarRestricoes(LancamentoFilter lancamentoFilter ,CriteriaBuilder builder, Root<Lancamento> root) {
+//    }
 }
