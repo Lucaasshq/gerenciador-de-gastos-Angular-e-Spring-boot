@@ -33,7 +33,7 @@ public class LancamentoService {
     }
 
     public List<Lancamento> buscarTodos(LancamentoFilter filter){
-        return lancamentoRepository.findAll();
+        return lancamentoRepository.filtrar(filter);
     }
 
     public List<Lancamento> pesquisarLancamento(){

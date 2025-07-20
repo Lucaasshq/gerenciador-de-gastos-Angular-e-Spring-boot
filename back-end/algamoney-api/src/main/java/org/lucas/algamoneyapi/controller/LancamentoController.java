@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.lucas.algamoneyapi.dto.LancamentoDTO;
 import org.lucas.algamoneyapi.model.Lancamento;
+import org.lucas.algamoneyapi.repository.filter.LancamentoFilter;
 import org.lucas.algamoneyapi.service.LancamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -24,10 +25,10 @@ public class LancamentoController {
     ApplicationEventPublisher publisher;
 
 
-//    @GetMapping
-//    public ResponseEntity<List<Lancamento>> listarLancamentos(){
-//        return ResponseEntity.ok(lancamentoService.buscarTodos());
-//    }
+    @GetMapping
+    public ResponseEntity<List<Lancamento>> filtrar(LancamentoFilter filter){
+        return ResponseEntity.ok(lancamentoService.buscarTodos(filter));
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Lancamento> buscarPorId(@PathVariable Long id){
