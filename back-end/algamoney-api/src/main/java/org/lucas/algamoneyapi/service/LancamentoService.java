@@ -12,6 +12,7 @@ import org.lucas.algamoneyapi.model.Pessoa;
 import org.lucas.algamoneyapi.repository.CategoriaRepository;
 import org.lucas.algamoneyapi.repository.LancamentoRepository;
 import org.lucas.algamoneyapi.repository.PessoaRepository;
+import org.lucas.algamoneyapi.repository.filter.LancamentoFilter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,7 +32,11 @@ public class LancamentoService {
         this.categoriaRepository = categoriaRepository;
     }
 
-    public List<Lancamento> buscarTodos(){
+    public List<Lancamento> buscarTodos(LancamentoFilter filter){
+        return lancamentoRepository.findAll();
+    }
+
+    public List<Lancamento> pesquisarLancamento(){
         return lancamentoRepository.findAll();
     }
 
