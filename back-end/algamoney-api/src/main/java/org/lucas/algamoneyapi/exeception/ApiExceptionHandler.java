@@ -64,6 +64,12 @@ public class ApiExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erroDTO);
     }
 
+    @ExceptionHandler(PessoaInativaException.class)
+    public ResponseEntity<ErroDTO> handlerPessoaInativaException(PessoaInativaException ex){
+        ErroDTO erroDTO = new ErroDTO(HttpStatus.NOT_FOUND.value(), ex.getMessage(), "Pessoa Inativa ou não existe");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erroDTO);
+    }
+
 
 
 }

@@ -2,7 +2,10 @@ package org.lucas.algamoneyapi.service;
 
 import org.lucas.algamoneyapi.dto.LancamentoDTO;
 import org.lucas.algamoneyapi.dto.Mapper.LancamentoMapper;
+import org.lucas.algamoneyapi.exeception.CategoriaNaoEncontradaException;
 import org.lucas.algamoneyapi.exeception.LancamentoNaoEncontradoException;
+import org.lucas.algamoneyapi.exeception.PessoaInativaException;
+import org.lucas.algamoneyapi.exeception.PessoaNaoEncontradaException;
 import org.lucas.algamoneyapi.model.Categoria;
 import org.lucas.algamoneyapi.model.Lancamento;
 import org.lucas.algamoneyapi.model.Pessoa;
@@ -37,8 +40,11 @@ public class LancamentoService {
     }
 
     public LancamentoDTO salvar(LancamentoDTO lancamentoDTO){
-        Pessoa pessoaEncontrada = pessoaRepository.getReferenceById(lancamentoDTO.getPessoa().getId());
-        Categoria categoriaEncontrada = categoriaRepository.getReferenceById(lancamentoDTO.getCategoria().getId());
+        Pessoa pessoaEncontrada = pessoaRepository.findById(lancamentoDTO.getPessoa().getId()).orElseThrow(() -> new PessoaNaoEncontradaException("Pessoa de " +lancamentoDTO.getPessoa().getId()+ " não encontrado"));
+        if (!pessoaEncontrada.getAtivo()){
+            throw new PessoaInativaException("Pessoa de id " +lancamentoDTO.getPessoa().getId()+ " inativo");
+        }
+        Categoria categoriaEncontrada = categoriaRepository.findById(lancamentoDTO.getCategoria().getId()).orElseThrow(() -> new CategoriaNaoEncontradaException("Categoria de "+lancamentoDTO.getCategoria().getId()+ " não encontrada"));
 
        Lancamento entity = LancamentoMapper.toEntity(lancamentoDTO, pessoaEncontrada, categoriaEncontrada);
        Lancamento salvo = lancamentoRepository.save(entity);
