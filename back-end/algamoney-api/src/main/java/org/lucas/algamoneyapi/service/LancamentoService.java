@@ -32,11 +32,11 @@ public class LancamentoService {
         this.categoriaRepository = categoriaRepository;
     }
 
-    public List<Lancamento> buscarTodos(LancamentoFilter filter){
+    public List<Lancamento> pesquisarLancamento(LancamentoFilter filter){
         return lancamentoRepository.filtrar(filter);
     }
 
-    public List<Lancamento> pesquisarLancamento(){
+    public List<Lancamento> buscarTodos(){
         return lancamentoRepository.findAll();
     }
 

@@ -2,10 +2,10 @@ version: "3.8"  # Versão do docker-compose
 
 services:       # Lista dos serviços que vão rodar
 
-  db:           # Serviço do banco de dados
+  db: # Serviço do banco de dados
     image: postgres:15  # Usa o PostgreSQL versão 15
     container_name: postgres-db  # Nome do container do banco
-    environment:  # Configura o banco com usuário, senha e nome do banco
+    environment: # Configura o banco com usuário, senha e nome do banco
       POSTGRES_DB: algamoneyApi
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres

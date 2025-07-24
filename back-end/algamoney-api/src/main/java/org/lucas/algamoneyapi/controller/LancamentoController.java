@@ -27,7 +27,7 @@ public class LancamentoController {
 
     @GetMapping
     public ResponseEntity<List<Lancamento>> filtrar(LancamentoFilter filter){
-        return ResponseEntity.ok(lancamentoService.buscarTodos(filter));
+        return ResponseEntity.ok(lancamentoService.pesquisarLancamento(filter));
     }
 
     @GetMapping("/{id}")
