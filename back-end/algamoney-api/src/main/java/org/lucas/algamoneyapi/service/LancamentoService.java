@@ -61,6 +61,6 @@ public class LancamentoService {
         if (!lancamentoRepository.existsById(id)){
             throw new LancamentoNaoEncontradoException("Lançamento de id " +id+ " não encontrado ou já removido");
         };
-        lancamentoRepository.deleteById(id);;
+        lancamentoRepository.deleteById(id);
     }
 }
