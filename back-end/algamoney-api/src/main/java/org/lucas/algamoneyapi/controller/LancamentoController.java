@@ -8,6 +8,8 @@ import org.lucas.algamoneyapi.repository.filter.LancamentoFilter;
 import org.lucas.algamoneyapi.service.LancamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +28,8 @@ public class LancamentoController {
 
 
     @GetMapping
-    public ResponseEntity<List<Lancamento>> filtrar(LancamentoFilter filter){
-        return ResponseEntity.ok(lancamentoService.pesquisarLancamento(filter));
+    public ResponseEntity<Page<Lancamento>> filtrar(LancamentoFilter filter, Pageable pageable){
+        return ResponseEntity.ok(lancamentoService.pesquisarLancamento(filter, pageable));
     }
 
     @GetMapping("/{id}")

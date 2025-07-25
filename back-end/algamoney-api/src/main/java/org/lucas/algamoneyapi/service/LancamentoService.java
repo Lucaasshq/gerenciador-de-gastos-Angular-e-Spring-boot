@@ -13,6 +13,8 @@ import org.lucas.algamoneyapi.repository.CategoriaRepository;
 import org.lucas.algamoneyapi.repository.LancamentoRepository;
 import org.lucas.algamoneyapi.repository.PessoaRepository;
 import org.lucas.algamoneyapi.repository.filter.LancamentoFilter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,8 +34,8 @@ public class LancamentoService {
         this.categoriaRepository = categoriaRepository;
     }
 
-    public List<Lancamento> pesquisarLancamento(LancamentoFilter filter){
-        return lancamentoRepository.filtrar(filter);
+    public Page<Lancamento> pesquisarLancamento(LancamentoFilter filter, Pageable pageable){
+        return lancamentoRepository.filtrar(filter, pageable);
     }
 
     public List<Lancamento> buscarTodos(){
