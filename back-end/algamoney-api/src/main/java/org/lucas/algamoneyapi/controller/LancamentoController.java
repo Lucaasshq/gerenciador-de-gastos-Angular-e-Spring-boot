@@ -41,4 +41,10 @@ public class LancamentoController {
 //        publisher.publishEvent(new RecursoCriadoEvent(response, lancamentoSalvo.ge));
         return ResponseEntity.status(HttpStatus.CREATED).body(lancamentoSalvo);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluirLancamento(@PathVariable Long id){
+        lancamentoService.excluir(id);
+       return ResponseEntity.noContent().build();
+    }
 }

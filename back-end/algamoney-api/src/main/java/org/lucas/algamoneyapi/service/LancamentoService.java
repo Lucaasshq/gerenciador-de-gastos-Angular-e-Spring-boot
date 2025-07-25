@@ -59,7 +59,7 @@ public class LancamentoService {
 
     public void excluir(Long id){
         if (!lancamentoRepository.existsById(id)){
-            throw new RuntimeException("Teste: id não encontrado Lancamento repostory exluir");
+            throw new LancamentoNaoEncontradoException("Lançamento de id " +id+ " não encontrado ou já removido");
         };
         lancamentoRepository.deleteById(id);
     }
