@@ -1,4 +1,3 @@
-version: "3.8"  # Versão do docker-compose
 
 services:       # Lista dos serviços que vão rodar
 
@@ -25,6 +24,8 @@ services:       # Lista dos serviços que vão rodar
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/algamoneyApi
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
+
+
 
 volumes:
   pgdata:  # Volume para guardar os dados do banco de forma permanente
