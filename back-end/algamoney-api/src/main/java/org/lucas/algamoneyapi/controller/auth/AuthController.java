@@ -1,4 +1,4 @@
-package org.lucas.algamoneyapi.auth;
+package org.lucas.algamoneyapi.controller.auth;
 
 import org.lucas.algamoneyapi.config.JwtUtil.JwtUtil;
 import org.lucas.algamoneyapi.dto.LoginDTO;
@@ -39,24 +39,25 @@ public class AuthController {
     public ResponseEntity<?> login (@RequestBody LoginDTO login) {
             try {
                 Authentication authentication = authenticationManager.authenticate(
-                        new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword())
+                        new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword())
                 );
 
-                String token = jwtUtil.gerarToken(login.getUsername());
+                String token = jwtUtil.gerarToken(login.getEmail());
                 return ResponseEntity.ok(new LoginResponseDTO(token));
             } catch (AuthenticationCredentialsNotFoundException e){
-                return ResponseEntity.status(401).body("Usuário ou senha inválido.");
+                return ResponseEntity.status(401).body("email ou senha inválido.");
             }
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterDTO registerDTO) {
-        if (usuarioRepository.findByUsername(registerDTO.getUsername()).isPresent()) {
-            return ResponseEntity.status(400).body("Usuário já existe.");
+        if (usuarioRepository.findByEmail(registerDTO.getUsername()).isPresent()) {
+            return ResponseEntity.status(400).body("email já existe.");
         }
 
         Usuario novoUsuario = new Usuario();
         novoUsuario.setUsername(registerDTO.getUsername());
+        novoUsuario.setEmail(registerDTO.getEmail());
         novoUsuario.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
         novoUsuario.setRoles(Roles.USUARIO); // ou Roles.ADMIN se quiser
 

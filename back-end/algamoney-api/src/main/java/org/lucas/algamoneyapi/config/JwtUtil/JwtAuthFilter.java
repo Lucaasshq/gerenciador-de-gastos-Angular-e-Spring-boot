@@ -4,8 +4,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.lucas.algamoneyapi.UserDetailsServiceImpl;
 import org.lucas.algamoneyapi.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -17,7 +17,7 @@ import java.io.IOException;
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-
+    @Autowired
     private final UsuarioRepository usuarioRepository;
 
     public JwtAuthFilter(UsuarioRepository usuarioRepository) {
@@ -36,8 +36,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
             if (JwtUtil.validarToken(token)) {
-                String username = JwtUtil.extrairUsername(token);
-                var usuario = usuarioRepository.findByUsername(username);
+                String email = JwtUtil.extrairEmail(token);
+                var usuario = usuarioRepository.findByEmail(email);
 
                 if (usuario.isPresent() && SecurityContextHolder.getContext().getAuthentication() == null) {
                     var userDetails = usuario.get(); // Usuario implementa UserDetails

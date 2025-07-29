@@ -1,4 +1,4 @@
-package org.lucas.algamoneyapi;
+package org.lucas.algamoneyapi.service;
 
 import org.lucas.algamoneyapi.model.Usuario;
 import org.lucas.algamoneyapi.repository.UsuarioRepository;
@@ -14,11 +14,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UsuarioRepository usuarioRepository;
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepository.findByUsername(username).orElseThrow( () -> new UsernameNotFoundException("Usuário não encontrado"));
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow( () -> new UsernameNotFoundException("email não encontrado"));
 
         return User.builder()
-                .username(usuario.getUsername())
+                .username(usuario.getEmail())
                 .password(usuario.getPassword())
                 .roles(usuario.getRoles().name())
                 .build();
