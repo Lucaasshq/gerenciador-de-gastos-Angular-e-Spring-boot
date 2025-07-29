@@ -3,10 +3,15 @@ package org.lucas.algamoneyapi.config.JwtUtil;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class JwtUtil {
 
@@ -15,9 +20,15 @@ public class JwtUtil {
 
     private static final Key KEY = Keys.hmacShaKeyFor(SECRET.getBytes());
 
-    public String gerarToken(String email) {
+    public String gerarToken(UserDetails userDetails) {
+        List<String> roles = userDetails.getAuthorities()
+                .stream()
+                .map(grantedAuthority -> grantedAuthority.getAuthority())
+                .toList();
+
         return Jwts.builder()
-                .setSubject(email)
+                .setSubject(userDetails.getUsername())
+                .claim("roles", roles)
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(KEY)
                 .compact();

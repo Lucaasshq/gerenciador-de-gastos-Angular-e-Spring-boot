@@ -2,7 +2,7 @@ package org.lucas.algamoneyapi.controller.auth;
 
 import org.lucas.algamoneyapi.config.JwtUtil.JwtUtil;
 import org.lucas.algamoneyapi.dto.LoginDTO;
-import org.lucas.algamoneyapi.dto.LoginResponseDTO;
+import org.lucas.algamoneyapi.dto.TokenResponseDTO;
 import org.lucas.algamoneyapi.dto.RegisterDTO;
 import org.lucas.algamoneyapi.model.Usuario;
 import org.lucas.algamoneyapi.model.enums.Roles;
@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationCredentialsNotF
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,8 +43,10 @@ public class AuthController {
                         new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword())
                 );
 
-                String token = jwtUtil.gerarToken(login.getEmail());
-                return ResponseEntity.ok(new LoginResponseDTO(token));
+                UserDetails usuario = (UserDetails) authentication.getPrincipal();
+
+                String token = jwtUtil.gerarToken(usuario);
+                return ResponseEntity.ok(new TokenResponseDTO(token));
             } catch (AuthenticationCredentialsNotFoundException e){
                 return ResponseEntity.status(401).body("email ou senha inválido.");
             }
@@ -51,8 +54,12 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterDTO registerDTO) {
-        if (usuarioRepository.findByEmail(registerDTO.getUsername()).isPresent()) {
+        if (usuarioRepository.findByEmail(registerDTO.getEmail()).isPresent()) {
             return ResponseEntity.status(400).body("email já existe.");
+        }
+
+        if (registerDTO.getPassword().length() < 8){
+            return ResponseEntity.status(400).body("Senha: deve conter no minimo 8 caracteres");
         }
 
         Usuario novoUsuario = new Usuario();
