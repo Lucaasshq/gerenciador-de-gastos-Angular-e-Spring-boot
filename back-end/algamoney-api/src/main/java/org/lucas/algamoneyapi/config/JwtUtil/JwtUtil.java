@@ -8,6 +8,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +20,7 @@ import java.util.stream.Collectors;
 public class JwtUtil {
 
     private static final String SECRET = "63640264849a87c90356129d99ea165e37aa5fabc1fea46906df1a7ca50db492";
-    private static final long EXPIRATION_TIME = 300000; // 5 minutos
+
 
     private static final Key KEY = Keys.hmacShaKeyFor(SECRET.getBytes());
 
@@ -29,10 +33,11 @@ public class JwtUtil {
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .claim("roles", roles)
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .setExpiration(Date.from(EXPIRATION_TIME()))
                 .signWith(KEY)
                 .compact();
     }
+
 
     public static String extrairEmail(String token) {
         return Jwts.parserBuilder()
@@ -53,5 +58,9 @@ public class JwtUtil {
         } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
+    }
+
+    public Instant EXPIRATION_TIME(){
+        return Instant.now().plus(5, ChronoUnit.HOURS);
     }
 }

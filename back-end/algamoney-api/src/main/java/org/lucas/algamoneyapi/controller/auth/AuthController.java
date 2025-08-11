@@ -42,15 +42,36 @@ public class AuthController {
                 Authentication authentication = authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword())
                 );
-
                 UserDetails usuario = (UserDetails) authentication.getPrincipal();
 
                 String token = jwtUtil.gerarToken(usuario);
+//                String refresh_token = jwtUtil.refreshToken(usuario);
+
                 return ResponseEntity.ok(new TokenResponseDTO(token));
+
+
             } catch (AuthenticationCredentialsNotFoundException e){
                 return ResponseEntity.status(401).body("email ou senha inválido.");
             }
     }
+
+//    @PostMapping("/refresh")
+//    public ResponseEntity<?> refresh(@RequestBody Map<String, String> request) {
+//        String refreshToken = request.get("refreshToken");
+//
+//        if (jwtUtil.validarToken(refreshToken)) {
+//            String username = jwtUtil.getUsername(refreshToken);
+//
+//            UserDetails usuario = usuarioRepository.findByEmail(username)
+//                    .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+//
+//            String newAccessToken = jwtUtil.gerarAccessToken(usuario);
+//            return ResponseEntity.ok(Map.of("accessToken", newAccessToken));
+//        } else {
+//            return ResponseEntity.status(401).body("Refresh token inválido ou expirado.");
+//        }
+//    }
+
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterDTO registerDTO) {
