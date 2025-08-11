@@ -26,11 +26,13 @@ public class PessoaController {
     ApplicationEventPublisher publisher;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('USUARIO', 'ADMIN')")
     public ResponseEntity<List<Pessoa>> listarPessoas(){
         return ResponseEntity.ok(pessoaService.buscarTodos());
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Pessoa> criarPessoa(@Valid @RequestBody Pessoa pessoa, HttpServletResponse response){
         Pessoa pessoaSalva = pessoaService.salvar(pessoa);
         publisher.publishEvent(new RecursoCriadoEvent(response, pessoaSalva.getId()));
@@ -39,11 +41,13 @@ public class PessoaController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('USUARIO', 'ADMIN')")
     public ResponseEntity<Pessoa> buscarPorId(@PathVariable Long id){
         return ResponseEntity.ok(pessoaService.buscarPorId(id));
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Void> excluir(@PathVariable Long id){
         pessoaService.excluir(id);
         return ResponseEntity.noContent().build();
@@ -51,11 +55,13 @@ public class PessoaController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Pessoa> atualizarDados(@PathVariable Long id,@Valid @RequestBody Pessoa pessoa){
        return ResponseEntity.ok(pessoaService.atualizar(id, pessoa)) ;
     }
 
     @PutMapping("/{id}/ativo")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Void> atualizarPropriedadeAtivo(@PathVariable Long id, @RequestBody Boolean ativo){
         pessoaService.atualizarPropriedadeAtivo(id, ativo);
         return ResponseEntity.noContent().build();

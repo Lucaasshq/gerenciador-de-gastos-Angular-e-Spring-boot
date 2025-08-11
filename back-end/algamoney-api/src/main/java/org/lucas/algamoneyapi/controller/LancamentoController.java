@@ -29,17 +29,19 @@ public class LancamentoController {
 
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('USUARIO', 'ADMIN')")
     public ResponseEntity<Page<Lancamento>> filtrar(LancamentoFilter filter, Pageable pageable){
         return ResponseEntity.ok(lancamentoService.pesquisarLancamento(filter, pageable));
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USUARIO')")
+    @PreAuthorize("hasAnyRole('USUARIO', 'ADMIN')")
     public ResponseEntity<Lancamento> buscarPorId(@PathVariable Long id){
         return ResponseEntity.ok(lancamentoService.buscarPorId(id));
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('USUARIO', 'ADMIN')")
     public ResponseEntity<LancamentoDTO> criarLancamento(@Valid @RequestBody LancamentoDTO dto, HttpServletResponse response){
         LancamentoDTO lancamentoSalvo = lancamentoService.salvar(dto);
 //        publisher.publishEvent(new RecursoCriadoEvent(response, lancamentoSalvo.ge));
@@ -47,6 +49,7 @@ public class LancamentoController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Void> excluirLancamento(@PathVariable Long id){
         lancamentoService.excluir(id);
        return ResponseEntity.noContent().build();

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,12 +25,14 @@ public class CategoriaController {
 
 
     @GetMapping()
+    @PreAuthorize("hasAnyRole('USUARIO', 'ADMIN')")
     public ResponseEntity<List<Categoria>> listarCategorias(){
         List<Categoria> categoriaList = categoriaService.buscarTodos();
         return ResponseEntity.ok(categoriaList);
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('USUARIO', 'ADMIN')")
     public ResponseEntity<Categoria> criarCategoria(@Valid @RequestBody Categoria categoria, HttpServletResponse response){
         Categoria categoriaSalva = categoriaService.salvar(categoria);
         publisher.publishEvent(new RecursoCriadoEvent(response, categoriaSalva.getId()));
@@ -40,6 +43,7 @@ public class CategoriaController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('USUARIO', 'ADMIN')")
     public ResponseEntity<Categoria> buscarPorId(@PathVariable Long id) {
             Categoria cEncontrada = categoriaService.buscarPorId(id);
             return  ResponseEntity.ok(cEncontrada);
