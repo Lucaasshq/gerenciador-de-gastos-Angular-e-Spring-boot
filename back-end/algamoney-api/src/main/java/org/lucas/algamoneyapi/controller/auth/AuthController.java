@@ -1,7 +1,10 @@
 package org.lucas.algamoneyapi.controller.auth;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.lucas.algamoneyapi.config.JwtUtil.JwtUtil;
 import org.lucas.algamoneyapi.dto.LoginDTO;
+import org.lucas.algamoneyapi.dto.RefreshTokenDto;
 import org.lucas.algamoneyapi.dto.TokenResponseDTO;
 import org.lucas.algamoneyapi.dto.RegisterDTO;
 import org.lucas.algamoneyapi.model.Usuario;
@@ -20,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
+import java.util.Date;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -37,17 +43,25 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login (@RequestBody LoginDTO login) {
+    public ResponseEntity<?> login (@RequestBody LoginDTO login, HttpServletResponse response) {
             try {
                 Authentication authentication = authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword())
                 );
                 UserDetails usuario = (UserDetails) authentication.getPrincipal();
 
-                String token = jwtUtil.gerarToken(usuario);
-//                String refresh_token = jwtUtil.refreshToken(usuario);
+                String token = jwtUtil.gerarToken(usuario, jwtUtil.EXPIRATION_TOKEN(Date.from(Instant.now())));
+                String refresh_token = jwtUtil.gerarToken(usuario, jwtUtil.EXPIRATION_REFRESH_TOKEN(Date.from(Instant.now())));
+                
+                int maxAge = (int) ((jwtUtil.EXPIRATION_REFRESH_TOKEN(Date.from(Instant.now())).getTime() - System.currentTimeMillis()) / 1000);
+                Cookie refreshTokenCookie = new Cookie("refreshToken", refresh_token);
+                refreshTokenCookie.setHttpOnly(true);
+                refreshTokenCookie.setSecure(true);
+                refreshTokenCookie.setPath("/");
+                refreshTokenCookie.setMaxAge(maxAge);
 
-                return ResponseEntity.ok(new TokenResponseDTO(token));
+                response.addCookie(refreshTokenCookie);
+                return ResponseEntity.ok(new TokenResponseDTO(token,null));
 
 
             } catch (AuthenticationCredentialsNotFoundException e){
@@ -55,22 +69,12 @@ public class AuthController {
             }
     }
 
-//    @PostMapping("/refresh")
-//    public ResponseEntity<?> refresh(@RequestBody Map<String, String> request) {
-//        String refreshToken = request.get("refreshToken");
-//
-//        if (jwtUtil.validarToken(refreshToken)) {
-//            String username = jwtUtil.getUsername(refreshToken);
-//
-//            UserDetails usuario = usuarioRepository.findByEmail(username)
-//                    .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-//
-//            String newAccessToken = jwtUtil.gerarAccessToken(usuario);
-//            return ResponseEntity.ok(Map.of("accessToken", newAccessToken));
-//        } else {
-//            return ResponseEntity.status(401).body("Refresh token inválido ou expirado.");
-//        }
-//    }
+    @PostMapping("/refresh")
+    public ResponseEntity<?> refresh(@RequestBody RefreshTokenDto refreshToken) {
+
+
+        return ResponseEntity.ok(jwtUtil.obterRefreshToken(refreshToken));
+    }
 
 
     @PostMapping("/register")
