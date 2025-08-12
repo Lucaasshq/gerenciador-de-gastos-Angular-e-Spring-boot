@@ -7,6 +7,7 @@ import org.lucas.algamoneyapi.dto.RefreshTokenDto;
 import org.lucas.algamoneyapi.dto.TokenResponseDTO;
 import org.lucas.algamoneyapi.model.Usuario;
 import org.lucas.algamoneyapi.repository.UsuarioRepository;
+import org.lucas.algamoneyapi.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,14 +26,23 @@ import static io.jsonwebtoken.Jwts.builder;
 @Component
 public class JwtUtil {
 
+
     @Autowired
     UsuarioRepository usuarioRepository;
+
+
 
     private static final String SECRET = "63640264849a87c90356129d99ea165e37aa5fabc1fea46906df1a7ca50db492";
     public static final long EXPIRE_DAYS = 0;
     public static final long EXPIRE_HOURS = 0;
-    public static final long EXPIRE_MINUTES = 1;
+    public static final long EXPIRE_MINUTES = 5;
     public static final long EXPIRERATION_REFRESH_TOKEN_DAYS = 7;
+    public static final String JWT_AUTHORIZATION = "Authorization";
+    public static final String JWT_BEARER = "Bearer ";
+
+    private JwtUtil() {
+
+    }
 
 
     private static final Key KEY = Keys.hmacShaKeyFor(SECRET.getBytes());

@@ -52,7 +52,7 @@ public class AuthController {
 
                 String token = jwtUtil.gerarToken(usuario, jwtUtil.EXPIRATION_TOKEN(Date.from(Instant.now())));
                 String refresh_token = jwtUtil.gerarToken(usuario, jwtUtil.EXPIRATION_REFRESH_TOKEN(Date.from(Instant.now())));
-                
+
                 int maxAge = (int) ((jwtUtil.EXPIRATION_REFRESH_TOKEN(Date.from(Instant.now())).getTime() - System.currentTimeMillis()) / 1000);
                 Cookie refreshTokenCookie = new Cookie("refreshToken", refresh_token);
                 refreshTokenCookie.setHttpOnly(true);
@@ -95,6 +95,18 @@ public class AuthController {
 
         usuarioRepository.save(novoUsuario);
         return ResponseEntity.ok("Usuário cadastrado com sucesso.");
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletResponse response){
+        Cookie cookie = new Cookie("refreshToken", null);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+
+        response.addCookie(cookie);
+        return ResponseEntity.noContent().build();
     }
 
 
