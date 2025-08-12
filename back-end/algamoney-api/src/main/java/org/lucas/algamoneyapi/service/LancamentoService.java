@@ -13,6 +13,7 @@ import org.lucas.algamoneyapi.repository.CategoriaRepository;
 import org.lucas.algamoneyapi.repository.LancamentoRepository;
 import org.lucas.algamoneyapi.repository.PessoaRepository;
 import org.lucas.algamoneyapi.repository.filter.LancamentoFilter;
+import org.lucas.algamoneyapi.repository.projection.LancamentoProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -65,4 +66,9 @@ public class LancamentoService {
         };
         lancamentoRepository.deleteById(id);
     }
+
+    public Page<LancamentoProjection> resumo(Pageable pageable) {
+        return lancamentoRepository.lancamentoProjection(pageable);
+    }
+
 }

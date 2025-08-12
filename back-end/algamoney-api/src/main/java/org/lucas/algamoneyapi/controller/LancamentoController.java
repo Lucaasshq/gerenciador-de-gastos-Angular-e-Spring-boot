@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import org.lucas.algamoneyapi.dto.LancamentoDTO;
 import org.lucas.algamoneyapi.model.Lancamento;
 import org.lucas.algamoneyapi.repository.filter.LancamentoFilter;
+import org.lucas.algamoneyapi.repository.projection.LancamentoProjection;
 import org.lucas.algamoneyapi.service.LancamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -32,6 +33,12 @@ public class LancamentoController {
     @PreAuthorize("hasAnyRole('USUARIO', 'ADMIN')")
     public ResponseEntity<Page<Lancamento>> filtrar(LancamentoFilter filter, Pageable pageable){
         return ResponseEntity.ok(lancamentoService.pesquisarLancamento(filter, pageable));
+    }
+
+    @GetMapping("/resumo")
+    @PreAuthorize("hasAnyRole('USUARIO', 'ADMIN')")
+    public ResponseEntity<Page<LancamentoProjection>> resumo(Pageable pageable){
+        return ResponseEntity.ok(lancamentoService.resumo(pageable));
     }
 
     @GetMapping("/{id}")
