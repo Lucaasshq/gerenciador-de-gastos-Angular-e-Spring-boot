@@ -5,6 +5,8 @@ import org.lucas.algamoneyapi.exeception.PessoaNaoEncontradaException;
 import org.lucas.algamoneyapi.model.Endereco;
 import org.lucas.algamoneyapi.model.Pessoa;
 import org.lucas.algamoneyapi.repository.PessoaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -62,5 +64,9 @@ public class PessoaService {
         Pessoa pessoaEncontrada = pessoaRepository.findById(id).orElseThrow(() -> new PessoaNaoEncontradaException("Pessoa com esse ID "+id+ " não encontrada"));
         pessoaEncontrada.setAtivo(ativo);
         pessoaRepository.save(pessoaEncontrada);
+    }
+
+    public Page<Pessoa> buscarPorNome(String nome, Pageable pageable) {
+        return pessoaRepository.buscarPorNome(nome, pageable);
     }
 }

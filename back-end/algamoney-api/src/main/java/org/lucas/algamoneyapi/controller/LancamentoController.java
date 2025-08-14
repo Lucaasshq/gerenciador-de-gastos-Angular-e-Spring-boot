@@ -2,6 +2,7 @@ package org.lucas.algamoneyapi.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.lucas.algamoneyapi.dto.LancamentoAtualizarDTO;
 import org.lucas.algamoneyapi.dto.LancamentoDTO;
 import org.lucas.algamoneyapi.model.Lancamento;
 import org.lucas.algamoneyapi.repository.filter.LancamentoFilter;
@@ -60,5 +61,11 @@ public class LancamentoController {
     public ResponseEntity<Void> excluirLancamento(@PathVariable Long id){
         lancamentoService.excluir(id);
        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('USUARIO', 'ADMIN')")
+    public ResponseEntity<Lancamento> atualiza(@PathVariable Long id, @Valid @RequestBody LancamentoAtualizarDTO lancamento){
+        return ResponseEntity.ok().body(lancamentoService.atualizar(id, lancamento));
     }
 }

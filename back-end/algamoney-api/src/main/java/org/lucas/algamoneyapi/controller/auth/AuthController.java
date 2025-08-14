@@ -3,7 +3,7 @@ package org.lucas.algamoneyapi.controller.auth;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.lucas.algamoneyapi.config.JwtUtil.JwtUtil;
-import org.lucas.algamoneyapi.dto.LoginDTO;
+import org.lucas.algamoneyapi.dto.LoginRequest;
 import org.lucas.algamoneyapi.dto.RefreshTokenDto;
 import org.lucas.algamoneyapi.dto.TokenResponseDTO;
 import org.lucas.algamoneyapi.dto.RegisterDTO;
@@ -44,7 +44,7 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login (@RequestBody LoginDTO login, HttpServletResponse response) {
+    public ResponseEntity<?> login (@RequestBody LoginRequest login, HttpServletResponse response) {
             try {
                 Authentication authentication = authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword())

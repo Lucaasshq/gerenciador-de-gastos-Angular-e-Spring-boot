@@ -8,6 +8,9 @@ import org.lucas.algamoneyapi.model.Pessoa;
 import org.lucas.algamoneyapi.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,6 +32,12 @@ public class PessoaController {
     @PreAuthorize("hasAnyRole('USUARIO', 'ADMIN')")
     public ResponseEntity<List<Pessoa>> listarPessoas(){
         return ResponseEntity.ok(pessoaService.buscarTodos());
+    }
+
+    @GetMapping("/buscar")
+    @PreAuthorize("hasAnyRole('USUARIO', 'ADMIN')")
+    public ResponseEntity<Page<Pessoa>> pesquisaPessoa(@RequestParam String nome, Pageable pageable){
+       return ResponseEntity.ok().body(pessoaService.buscarPorNome(nome, pageable));
     }
 
     @PostMapping
