@@ -70,6 +70,13 @@ public class ApiExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erroDTO);
     }
 
+    @ExceptionHandler(EmailNaoEncontradoException.class)
+    public ResponseEntity<ErroDTO> handlerEmailNaoEncontradoException(EmailNaoEncontradoException ex){
+        ErroDTO erroDTO = new ErroDTO(HttpStatus.NOT_FOUND.value(), ex.getMessage(), "Pessoa de email não encontrada");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erroDTO);
+    }
+
+
 
 
 }

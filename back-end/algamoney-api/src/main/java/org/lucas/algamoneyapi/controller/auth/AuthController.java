@@ -7,6 +7,7 @@ import org.lucas.algamoneyapi.dto.LoginDTO;
 import org.lucas.algamoneyapi.dto.RefreshTokenDto;
 import org.lucas.algamoneyapi.dto.TokenResponseDTO;
 import org.lucas.algamoneyapi.dto.RegisterDTO;
+import org.lucas.algamoneyapi.exeception.EmailNaoEncontradoException;
 import org.lucas.algamoneyapi.model.Usuario;
 import org.lucas.algamoneyapi.model.enums.Roles;
 import org.lucas.algamoneyapi.repository.UsuarioRepository;
@@ -48,10 +49,11 @@ public class AuthController {
                 Authentication authentication = authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword())
                 );
-                UserDetails usuario = (UserDetails) authentication.getPrincipal();
 
-                String token = jwtUtil.gerarToken(usuario, jwtUtil.EXPIRATION_TOKEN(Date.from(Instant.now())));
-                String refresh_token = jwtUtil.gerarToken(usuario, jwtUtil.EXPIRATION_REFRESH_TOKEN(Date.from(Instant.now())));
+                UserDetails usuario = (UserDetails) authentication.getPrincipal();
+                Usuario username = usuarioRepository.findByEmail(login.getEmail()).orElseThrow( () -> new EmailNaoEncontradoException("Usuario de email "+ login.getEmail()+" não encontrado" ));
+                String token = jwtUtil.gerarToken(usuario, jwtUtil.EXPIRATION_TOKEN(Date.from(Instant.now())), username.getUsername());
+                String refresh_token = jwtUtil.gerarToken(usuario, jwtUtil.EXPIRATION_REFRESH_TOKEN(Date.from(Instant.now())), username.getUsername());
 
                 int maxAge = (int) ((jwtUtil.EXPIRATION_REFRESH_TOKEN(Date.from(Instant.now())).getTime() - System.currentTimeMillis()) / 1000);
                 Cookie refreshTokenCookie = new Cookie("refreshToken", refresh_token);

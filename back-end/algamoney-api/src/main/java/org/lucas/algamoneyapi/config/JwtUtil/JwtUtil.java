@@ -47,7 +47,7 @@ public class JwtUtil {
 
     private static final Key KEY = Keys.hmacShaKeyFor(SECRET.getBytes());
 
-    public String gerarToken(UserDetails userDetails, Date expiration) {
+    public String gerarToken(UserDetails userDetails, Date expiration, String username) {
         List<String> roles = userDetails.getAuthorities()
                 .stream()
                 .map(grantedAuthority -> grantedAuthority.getAuthority())
@@ -57,6 +57,7 @@ public class JwtUtil {
 
         return builder()
                 .setSubject(userDetails.getUsername())
+                .claim("username", username)
                 .claim("roles", roles)
                 .setExpiration(limit)
                 .signWith(KEY)
