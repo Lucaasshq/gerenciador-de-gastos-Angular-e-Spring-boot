@@ -72,8 +72,8 @@ public class LancamentoService {
         lancamentoRepository.deleteById(id);
     }
 
-    public Page<LancamentoProjection> resumo(Pageable pageable) {
-        return lancamentoRepository.lancamentoProjection(pageable);
+    public Page<LancamentoProjection> resumo(String param ,Pageable pageable) {
+        return lancamentoRepository.lancamentoProjection(param ,pageable);
     }
 
     public  Lancamento atualizar(Long id, @Valid LancamentoAtualizarDTO lancamento) {

@@ -21,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/lancamentos")
+@CrossOrigin(origins = "*")
 public class LancamentoController {
 
     @Autowired
@@ -38,8 +39,8 @@ public class LancamentoController {
 
     @GetMapping("/resumo")
     @PreAuthorize("hasAnyRole('USUARIO', 'ADMIN')")
-    public ResponseEntity<Page<LancamentoProjection>> resumo(Pageable pageable){
-        return ResponseEntity.ok(lancamentoService.resumo(pageable));
+    public ResponseEntity<Page<LancamentoProjection>> resumo( @RequestParam(required = false) String descricao ,Pageable pageable){
+        return ResponseEntity.ok(lancamentoService.resumo(descricao ,pageable));
     }
 
     @GetMapping("/{id}")

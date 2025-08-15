@@ -7,21 +7,23 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface LancamentoRepository extends JpaRepository<Lancamento, Long>, LancamentoRepositoryQuery {
 
     @Query("""
-        SELECT l.id AS id,
-               l.descricao AS descricao,
-               l.dataVencimento AS dataVencimento,
-               l.dataPagamento AS dataPagamento,
-               l.valor AS valor,
-               l.tipo AS tipo,
-               c.nome AS categoria,
-               p.nome AS pessoa
-        FROM Lancamento l
-        JOIN l.categoria c
-        JOIN l.pessoa p
-    """)
-    Page<LancamentoProjection> lancamentoProjection(Pageable pageable);
+    SELECT l.id AS id,
+           l.descricao AS descricao,
+           l.dataVencimento AS dataVencimento,
+           l.dataPagamento AS dataPagamento,
+           l.valor AS valor,
+           l.tipo AS tipo,
+           c.nome AS categoria,
+           p.nome AS pessoa
+    FROM Lancamento l
+    JOIN l.categoria c
+    JOIN l.pessoa p
+    WHERE (:descricao IS NULL OR LOWER(l.descricao) LIKE LOWER(CONCAT('%', :descricao, '%')))
+""")
+    Page<LancamentoProjection> lancamentoProjection(@Param("descricao") String descricao, Pageable pageable);
 }
