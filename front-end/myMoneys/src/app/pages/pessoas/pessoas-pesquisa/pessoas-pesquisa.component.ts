@@ -5,9 +5,8 @@ import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
 import { RouterLink } from '@angular/router';
-import { LancamentosGridComponent } from "../../../layouts/lancamentos-grid/lancamentos-grid.component";
 import { Pessoa } from '../../../Model/pessoas';
-import { PessoasGridComponent } from "../../../layouts/pessoas-grid/pessoas-grid.component";
+import { TableModule } from "primeng/table";
 
 @Component({
   selector: 'app-pessoas-pesquisa',
@@ -18,7 +17,7 @@ import { PessoasGridComponent } from "../../../layouts/pessoas-grid/pessoas-grid
     ButtonModule,
     TooltipModule,
     RouterLink,
-    PessoasGridComponent
+    TableModule
 ],
   templateUrl: './pessoas-pesquisa.component.html',
   styleUrl: './pessoas-pesquisa.component.css',

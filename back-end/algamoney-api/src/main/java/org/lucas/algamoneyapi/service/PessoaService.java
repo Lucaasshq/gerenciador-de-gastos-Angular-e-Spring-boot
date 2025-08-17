@@ -44,20 +44,25 @@ public class PessoaService {
        pessoaEncontrada.setAtivo(pessoa.getAtivo());
 
        if (pessoa.getEndereco() != null){
-           Endereco endereco = new Endereco();
-           endereco.setLogradouro(pessoa.getEndereco().getLogradouro());
-           endereco.setCep(pessoa.getEndereco().getCep());
-           endereco.setNumero(pessoa.getEndereco().getNumero());
-           endereco.setComplemento(pessoa.getEndereco().getComplemento());
-           endereco.setBairro(pessoa.getEndereco().getBairro());
-           endereco.setCidade(pessoa.getEndereco().getCidade());
-           endereco.setEstado(pessoa.getEndereco().getEstado());
+           Endereco endereco = getEndereco(pessoa);
 
            pessoaEncontrada.setEndereco(endereco);
        }
 
 
         return pessoaRepository.save(pessoaEncontrada);
+    }
+
+    private Endereco getEndereco(Pessoa pessoa) {
+        Endereco endereco = new Endereco();
+        endereco.setLogradouro(pessoa.getEndereco().getLogradouro());
+        endereco.setCep(pessoa.getEndereco().getCep());
+        endereco.setNumero(pessoa.getEndereco().getNumero());
+        endereco.setComplemento(pessoa.getEndereco().getComplemento());
+        endereco.setBairro(pessoa.getEndereco().getBairro());
+        endereco.setCidade(pessoa.getEndereco().getCidade());
+        endereco.setEstado(pessoa.getEndereco().getEstado());
+        return endereco;
     }
 
     public void atualizarPropriedadeAtivo(Long id, Boolean ativo) {

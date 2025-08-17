@@ -8,7 +8,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { RouterModule } from '@angular/router';
 import { LancamentoService } from './lancamento.service';
 import { FormsModule } from '@angular/forms';
-import { LancamentosGridComponent } from "../../../layouts/lancamentos-grid/lancamentos-grid.component";
+
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -21,7 +21,6 @@ import { LancamentosGridComponent } from "../../../layouts/lancamentos-grid/lanc
     TableModule,
     TooltipModule,
     RouterModule,
-    LancamentosGridComponent
 ],
   templateUrl: './lancamentos-pesquisa.component.html',
   styleUrl: './lancamentos-pesquisa.component.css',
